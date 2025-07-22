@@ -63,7 +63,7 @@ const TopNavBar: React.FC<TopNavBarProps> = ({
           color: '#4F566B',
           whiteSpace: 'nowrap'
         }}>
-          Risk Profile:
+          Risk profile:
         </label>
         <div style={{ display: 'flex', gap: '8px' }}>
           {(['low', 'standard', 'high'] as RiskProfile[]).map((risk) => (
@@ -100,7 +100,7 @@ const TopNavBar: React.FC<TopNavBarProps> = ({
           color: '#4F566B',
           whiteSpace: 'nowrap'
         }}>
-          Entity Type:
+          Entity type:
         </label>
         <div style={{ display: 'flex', gap: '8px' }}>
           {(['individual', 'company'] as EntityType[]).map((entity) => (

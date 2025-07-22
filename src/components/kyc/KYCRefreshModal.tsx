@@ -74,13 +74,13 @@ const KYCRefreshModal: React.FC<KYCRefreshModalProps> = ({
       },
       {
         id: 'representative',
-        title: 'Personal Information',
+        title: 'Personal information',
         component: RepresentativeStep,
         includeInProgress: true,
       },
       {
         id: 'business',
-        title: 'Business Information',
+        title: 'Business information',
         component: BusinessStep,
         includeInProgress: true,
       },
@@ -90,7 +90,7 @@ const KYCRefreshModal: React.FC<KYCRefreshModalProps> = ({
     if (entityType === 'company') {
       baseSteps.push({
         id: 'businessOwner',
-        title: 'Business Owner',
+        title: 'Business owner',
         component: BusinessOwnerStep,
         includeInProgress: true,
       });
@@ -130,7 +130,21 @@ const KYCRefreshModal: React.FC<KYCRefreshModalProps> = ({
 
   const handlePreviousStep = () => {
     if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
+      // Special case: if on success step, skip verification and go to the step before it
+      if (steps[currentStep]?.id === 'success') {
+        // Find the verification step index
+        const verificationIndex = steps.findIndex(step => step.id === 'verification');
+        if (verificationIndex > 0) {
+          // Go to the step before verification
+          setCurrentStep(verificationIndex - 1);
+        } else {
+          // Fallback to normal behavior
+          setCurrentStep(currentStep - 1);
+        }
+      } else {
+        // Normal back navigation
+        setCurrentStep(currentStep - 1);
+      }
     }
   };
 
@@ -160,10 +174,25 @@ const KYCRefreshModal: React.FC<KYCRefreshModalProps> = ({
 
   const getButtonText = () => {
     const step = steps[currentStep];
-    if (step.id === 'context') return 'Get Started';
-    if (step.id === 'success') return 'Continue to Dashboard';
+    if (step.id === 'context') return 'Get started';
+    if (step.id === 'success') return 'Continue to dashboard';
     if (step.id === 'verification') return null; // No button for verification
+    if (step.id === 'representative' || step.id === 'business' || step.id === 'businessOwner') return 'Looks good';
     return 'Continue';
+  };
+
+  const getDisplayTitle = () => {
+    const step = steps[currentStep];
+    switch (step.id) {
+      case 'representative':
+        return 'Confirm your personal information';
+      case 'business':
+        return 'Confirm your business information';
+      case 'businessOwner':
+        return 'Confirm your business owners';
+      default:
+        return step.title;
+    }
   };
 
   const getCurrentProgressStep = () => {
@@ -295,7 +324,7 @@ const KYCRefreshModal: React.FC<KYCRefreshModalProps> = ({
                       color: '#1A1F2E',
                       margin: '0 0 24px 0'
                     }}>
-                      {currentStepTitle}
+                      {getDisplayTitle()}
                     </h2>
                   )}
                   

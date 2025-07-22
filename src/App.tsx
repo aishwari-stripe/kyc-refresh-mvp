@@ -217,7 +217,7 @@ function App() {
 
       {/* Email Preview as Main Content */}
       <div style={{ 
-        maxWidth: '600px',
+        maxWidth: '720px',
         margin: '0 auto',
         padding: '120px 20px 40px 20px' // Added top padding for nav bar
       }}>
@@ -280,19 +280,19 @@ function App() {
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
               borderRadius: '8px',
-              height: '120px',
+              height: '160px',
               marginBottom: '40px'
             }}>
             </div>
 
             {/* Main Heading */}
-            <div style={{ padding: '0 40px', marginBottom: '40px' }}>
+            <div style={{ padding: '0px 0px', marginBottom: '40px' }}>
               <h1 style={{
                 font: '700 32px/40px var(--font-family-system)',
                 color: '#1A1F2E',
                 textAlign: 'left',
-                margin: '0',
-                padding: '0'
+                margin: '0px',
+                padding: '0px'
               }}>
                 {emailContent.title}
               </h1>

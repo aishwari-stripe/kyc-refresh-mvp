@@ -278,10 +278,10 @@ const BusinessStep: React.FC<BusinessStepProps> = ({ userData }) => {
   return (
     <div>
 
-      {renderField('businessType', 'Business Type', formatBusinessType(formData.businessType))}
+                  {renderField('businessType', 'Business type', formatBusinessType(formData.businessType))}
       {renderField('industry', 'Industry', formatIndustry(formData.industry))}
       {renderField('websiteUrl', 'Website URL', formData.websiteUrl)}
-      {renderField('productDescription', 'Product Description', formData.productDescription, true)}
+                  {renderField('productDescription', 'Product description', formData.productDescription, true)}
     </div>
   );
 };
