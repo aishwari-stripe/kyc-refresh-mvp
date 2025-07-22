@@ -112,7 +112,7 @@ function App() {
           phone: '(555) 123-4567'
         },
         footerText: 'If all the details above are correct, you\'re all set! No further action is required from you. We will consider these details confirmed after November 15, 2023.\n\nIf you need to make any changes, go to your Stripe dashboard and update your information.',
-        ctaText: 'Update my Information',
+        ctaText: 'Update my information',
         signOff: 'Thank you for helping us keep your account secure.\n\nThe Stripe Team'
       };
     }
@@ -514,9 +514,10 @@ function App() {
             )}
 
             {/* CTA Button */}
-            <div style={{ textAlign: 'left', marginTop: '40px' }}>
+            <div style={{ textAlign: 'left', marginTop: '40px', position: 'relative' }}>
               <button 
-                onClick={handleOpenModal}
+                onClick={riskProfile === 'low' && entityType === 'individual' ? undefined : handleOpenModal}
+                disabled={riskProfile === 'low' && entityType === 'individual'}
                 style={{
                   backgroundColor: '#635BFF',
                   color: 'white',
@@ -525,17 +526,71 @@ function App() {
                   borderRadius: '6px',
                   font: '600 16px/24px var(--font-family-system)',
                   cursor: 'pointer',
-                  transition: 'all 0.2s ease'
+                  transition: 'all 0.2s ease',
+                  position: 'relative'
                 }}
                 onMouseOver={(e) => {
-                  e.currentTarget.style.backgroundColor = '#5449E6';
+                  if (!(riskProfile === 'low' && entityType === 'individual')) {
+                    e.currentTarget.style.backgroundColor = '#5449E6';
+                  }
+                  // Show tooltip for disabled state
+                  if (riskProfile === 'low' && entityType === 'individual') {
+                    const tooltip = e.currentTarget.nextElementSibling as HTMLElement;
+                    if (tooltip) {
+                      tooltip.style.display = 'block';
+                    }
+                  }
                 }}
                 onMouseOut={(e) => {
-                  e.currentTarget.style.backgroundColor = '#635BFF';
+                  if (!(riskProfile === 'low' && entityType === 'individual')) {
+                    e.currentTarget.style.backgroundColor = '#635BFF';
+                  }
+                  // Hide tooltip
+                  if (riskProfile === 'low' && entityType === 'individual') {
+                    const tooltip = e.currentTarget.nextElementSibling as HTMLElement;
+                    if (tooltip) {
+                      tooltip.style.display = 'none';
+                    }
+                  }
                 }}
               >
                 {emailContent.ctaText}
               </button>
+              
+              {/* Custom Tooltip */}
+              {riskProfile === 'low' && entityType === 'individual' && (
+                <div style={{
+                  display: 'none',
+                  position: 'absolute',
+                  bottom: '100%',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  backgroundColor: '#1A1F2E',
+                  color: 'white',
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  font: '400 14px/20px var(--font-family-system)',
+                  whiteSpace: 'nowrap',
+                  marginBottom: '8px',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                  zIndex: 1000,
+                  pointerEvents: 'none'
+                }}>
+                  Users can update their information in Stripe Settings, not shown in this demo
+                  {/* Tooltip arrow */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: 0,
+                    height: 0,
+                    borderLeft: '6px solid transparent',
+                    borderRight: '6px solid transparent',
+                    borderTop: '6px solid #1A1F2E'
+                  }} />
+                </div>
+              )}
             </div>
 
             {/* Footer text for standard verification */}
