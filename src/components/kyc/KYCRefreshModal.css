@@ -1,0 +1,269 @@
+/* CSS Variables */
+:root {
+  --font-family-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  
+  /* Typography Scale */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 32px;
+  
+  /* Line Heights */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.6;
+  
+  /* Colors */
+  --color-text-primary: #1A1F2E;
+  --color-text-secondary: #6C7689;
+  --color-text-muted: #4F566B;
+  --color-border: #E4E7EC;
+  --color-bg-subtle: #F9FAFB;
+  --color-primary: #635BFF;
+  --color-primary-hover: #4A47CC;
+  --color-success: #18954D;
+  --color-warning: #B54708;
+  --color-warning-bg: #FFF3E0;
+  --color-warning-border: #FDDBA4;
+}
+
+/* Modal Overlay */
+.kyc-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal Container */
+.kyc-modal {
+  background: white;
+  border-radius: 12px;
+  width: 1200px;
+  height: 900px;
+  max-width: 95vw;
+  max-height: 95vh;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Modal Content */
+.kyc-modal-content {
+  display: flex;
+  height: 100%;
+}
+
+/* Close Button */
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  transition: color 0.2s ease;
+}
+
+.close-button:hover {
+  color: var(--color-text-primary);
+}
+
+/* Context Step Specific Styles */
+.kyc-step.context-step .context-explanation {
+  font: 400 16px/24px var(--font-family-system);
+  color: var(--color-text-primary);
+  margin-bottom: 16px;
+  line-height: var(--leading-relaxed);
+}
+
+.kyc-step.context-step .context-list {
+  margin: 16px 0;
+  padding-left: 20px;
+}
+
+.kyc-step.context-step .context-list li {
+  margin-bottom: 8px;
+  font: 400 16px/24px var(--font-family-system);
+  color: var(--color-text-primary);
+  line-height: var(--leading-normal);
+}
+
+/* Form Field Styles */
+.field-container {
+  background: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.field-label {
+  font: 500 14px/20px var(--font-family-system);
+  color: var(--color-text-muted);
+  margin-bottom: 2px;
+  display: block;
+}
+
+.field-value {
+  font: 400 14px/20px var(--font-family-system);
+  color: var(--color-text-primary);
+}
+
+/* Button Styles */
+.btn {
+  font: 500 14px/20px var(--font-family-system);
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-secondary {
+  background-color: white;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-bg-subtle);
+}
+
+/* Loading Animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Large Verification Spinner */
+.verification-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid #FEF3E2;
+  border-top: 4px solid #F59E0B;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Badge Styles */
+.info-badge {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font: 500 12px/16px var(--font-family-system);
+  display: inline-block;
+  margin-bottom: 24px;
+  border: 1px solid var(--color-warning-border);
+}
+
+/* Edit Button Styles */
+.edit-button {
+  background: transparent;
+  color: var(--color-primary);
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  font: 500 14px/20px var(--font-family-system);
+}
+
+.edit-button:hover {
+  color: var(--color-primary-hover);
+}
+
+/* Form Input Styles */
+input, textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #D2D6DC;
+  border-radius: 4px;
+  font: 400 14px/20px var(--font-family-system);
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* Success and Error States */
+.success-state {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-success);
+  font: 400 14px/20px var(--font-family-system);
+}
+
+.loading-state {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-secondary);
+  font: 400 14px/20px var(--font-family-system);
+}
+
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--color-border);
+  border-top: 2px solid var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Success Step Styles */
+.success-checkmark {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #10B981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
+}
+
+.success-notification {
+  background-color: #ECFDF5;
+  border: 1px solid #BBF7D0;
+  border-radius: 8px;
+  padding: 16px 20px;
+}
+
+/* Verification Step Styles */
+.verification-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.verification-message {
+  font: 600 24px/32px var(--font-family-system);
+  color: #1A1F2E;
+  margin: 0 0 16px 0;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+} 
