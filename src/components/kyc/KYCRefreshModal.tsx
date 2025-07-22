@@ -224,7 +224,6 @@ const KYCRefreshModal: React.FC<KYCRefreshModalProps> = ({
   if (!isOpen) return null;
 
   const CurrentStepComponent = steps[currentStep]?.component;
-  const currentStepTitle = steps[currentStep]?.title;
   const isContextStep = steps[currentStep]?.id === 'context';
   const isVerificationStep = steps[currentStep]?.id === 'verification';
   const buttonText = getButtonText();
