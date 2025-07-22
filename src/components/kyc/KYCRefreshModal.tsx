@@ -144,11 +144,11 @@ const KYCRefreshModal: React.FC<KYCRefreshModalProps> = ({
       case 'context':
         return `url(${getAssetPath('/gradient-illustration.png')})`;
       case 'representative':
-        return 'linear-gradient(135deg, #635BFF 0%, #4F46E5 50%, #3B82F6 100%)';
+        return `url(${getAssetPath('/illustration-mock.png')})`;
       case 'business':
-        return 'linear-gradient(135deg, #3B82F6 0%, #10B981 50%, #059669 100%)';
+        return `url(${getAssetPath('/illustration-mock.png')})`;
       case 'businessOwner':
-        return 'linear-gradient(135deg, #10B981 0%, #14B8A6 50%, #0D9488 100%)';
+        return `url(${getAssetPath('/illustration-mock.png')})`;
       case 'verification':
         return 'linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #FDE047 100%)';
       case 'success':
@@ -228,119 +228,143 @@ const KYCRefreshModal: React.FC<KYCRefreshModalProps> = ({
         </button>
 
         <div className="kyc-modal-content">
-          {/* Left Panel */}
-          <div style={{ 
-            width: '50%', 
-            padding: '40px',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            position: 'relative'
-          }}>
-            <div>
-              {/* Progress bar for applicable steps */}
-              {shouldShowProgressBar() && (
-                <div style={{ marginBottom: '32px' }}>
-                  <div style={{
-                    font: '500 14px/20px var(--font-family-system)',
-                    color: '#6C7689',
-                    marginBottom: '8px'
-                  }}>
-                    Step {getCurrentProgressStep() + 1} of {progressSteps.length}
-                  </div>
-                  <div style={{
-                    width: '100%',
-                    height: '4px',
-                    backgroundColor: '#E4E7EC',
-                    borderRadius: '2px',
-                    overflow: 'hidden'
-                  }}>
-                    <div style={{
-                      width: `${((getCurrentProgressStep() + 1) / progressSteps.length) * 100}%`,
-                      height: '100%',
-                      backgroundColor: '#635BFF',
-                      borderRadius: '2px',
-                      transition: 'width 0.3s ease'
-                    }} />
-                  </div>
-                </div>
-              )}
-
-              {/* Step title for non-context steps */}
-              {!isContextStep && !isVerificationStep && steps[currentStep]?.id !== 'success' && (
-                <h2 style={{
-                  font: '600 24px/32px var(--font-family-system)',
-                  color: '#1A1F2E',
-                  margin: '0 0 24px 0'
-                }}>
-                  {currentStepTitle}
-                </h2>
-              )}
-              
+          {isVerificationStep ? (
+            /* Full-width layout for verification step */
+            <div style={{ 
+              width: '100%', 
+              padding: '40px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative',
+              minHeight: '100%'
+            }}>
               {/* Step content */}
               {CurrentStepComponent && (
                 <CurrentStepComponent 
                   userData={userData} 
-                  onComplete={isVerificationStep ? handleVerificationComplete : undefined}
+                  onComplete={handleVerificationComplete}
                 />
               )}
             </div>
-            
-            {/* Navigation buttons */}
-            {shouldShowNavigation() && (
-              <div style={{ marginTop: '32px' }}>
-                <div style={{ display: 'flex', gap: '16px', justifyContent: 'flex-end' }}>
-                  {currentStep > 0 && !isVerificationStep && (
-                    <button 
-                      onClick={handlePreviousStep}
-                      style={{
-                        padding: '12px 24px',
-                        border: '1px solid #E4E7EC',
-                        borderRadius: '6px',
-                        backgroundColor: '#FFFFFF',
-                        color: '#4F566B',
+          ) : (
+            <>
+              {/* Left Panel */}
+              <div style={{ 
+                width: '50%', 
+                padding: '40px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                position: 'relative'
+              }}>
+                <div>
+                  {/* Progress bar for applicable steps */}
+                  {shouldShowProgressBar() && (
+                    <div style={{ marginBottom: '32px' }}>
+                      <div style={{
                         font: '500 14px/20px var(--font-family-system)',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      Back
-                    </button>
+                        color: '#6C7689',
+                        marginBottom: '8px'
+                      }}>
+                        Step {getCurrentProgressStep() + 1} of {progressSteps.length}
+                      </div>
+                      <div style={{
+                        width: '100%',
+                        height: '4px',
+                        backgroundColor: '#E4E7EC',
+                        borderRadius: '2px',
+                        overflow: 'hidden'
+                      }}>
+                        <div style={{
+                          width: `${((getCurrentProgressStep() + 1) / progressSteps.length) * 100}%`,
+                          height: '100%',
+                          backgroundColor: '#635BFF',
+                          borderRadius: '2px',
+                          transition: 'width 0.3s ease'
+                        }} />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Step title for non-context steps */}
+                  {!isContextStep && !isVerificationStep && steps[currentStep]?.id !== 'success' && (
+                    <h2 style={{
+                      font: '600 24px/32px var(--font-family-system)',
+                      color: '#1A1F2E',
+                      margin: '0 0 24px 0'
+                    }}>
+                      {currentStepTitle}
+                    </h2>
                   )}
                   
-                  {buttonText && (
-                    <button 
-                      onClick={handleNextStep}
-                      style={{
-                        padding: '12px 24px',
-                        border: 'none',
-                        borderRadius: '6px',
-                        backgroundColor: '#635BFF',
-                        color: '#FFFFFF',
-                        font: '500 14px/20px var(--font-family-system)',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      {buttonText}
-                    </button>
+                  {/* Step content */}
+                  {CurrentStepComponent && (
+                    <CurrentStepComponent 
+                      userData={userData} 
+                      onComplete={isVerificationStep ? handleVerificationComplete : undefined}
+                    />
                   )}
                 </div>
+                
+                {/* Navigation buttons */}
+                {shouldShowNavigation() && (
+                  <div style={{ marginTop: '32px' }}>
+                    <div style={{ display: 'flex', gap: '16px', justifyContent: 'flex-end' }}>
+                      {currentStep > 0 && !isVerificationStep && (
+                        <button 
+                          onClick={handlePreviousStep}
+                          style={{
+                            padding: '12px 24px',
+                            border: '1px solid #E4E7EC',
+                            borderRadius: '6px',
+                            backgroundColor: '#FFFFFF',
+                            color: '#4F566B',
+                            font: '500 14px/20px var(--font-family-system)',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          Back
+                        </button>
+                      )}
+                      
+                      {buttonText && (
+                        <button 
+                          onClick={handleNextStep}
+                          style={{
+                            padding: '12px 24px',
+                            border: 'none',
+                            borderRadius: '6px',
+                            backgroundColor: '#635BFF',
+                            color: '#FFFFFF',
+                            font: '500 14px/20px var(--font-family-system)',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {buttonText}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-          
-          {/* Right panel with step-specific gradient */}
-          <div style={{ 
-            width: '50%',
-            background: steps[currentStep]?.id === 'success' 
-              ? `${getCurrentStepGradient()} center center / cover no-repeat`
-              : getCurrentStepGradient(),
-            ...(steps[currentStep]?.id !== 'success' && {
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat'
-            }),
-            backgroundColor: steps[currentStep]?.id === 'success' ? '#10B981' : 'transparent'
-          }} />
+              
+              {/* Right panel with step-specific gradient */}
+              <div style={{ 
+                width: '50%',
+                background: (['success', 'representative', 'business', 'businessOwner', 'context'].includes(steps[currentStep]?.id))
+                  ? `${getCurrentStepGradient()} center center / cover no-repeat`
+                  : getCurrentStepGradient(),
+                ...(!['success', 'representative', 'business', 'businessOwner', 'context'].includes(steps[currentStep]?.id) && {
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat'
+                }),
+                backgroundColor: steps[currentStep]?.id === 'success' ? '#10B981' : 'transparent'
+              }} />
+            </>
+          )}
         </div>
       </div>
     </div>

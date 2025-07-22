@@ -153,6 +153,26 @@
   100% { transform: rotate(360deg); }
 }
 
+@keyframes fadeInSkeleton {
+  0% { 
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
 /* Large Verification Spinner */
 .verification-spinner {
   width: 60px;
