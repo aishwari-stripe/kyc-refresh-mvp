@@ -331,10 +331,14 @@ const KYCRefreshModal: React.FC<KYCRefreshModalProps> = ({
           {/* Right panel with step-specific gradient */}
           <div style={{ 
             width: '50%',
-            background: getCurrentStepGradient(),
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
+            background: steps[currentStep]?.id === 'success' 
+              ? `${getCurrentStepGradient()} center center / cover no-repeat`
+              : getCurrentStepGradient(),
+            ...(steps[currentStep]?.id !== 'success' && {
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }),
             backgroundColor: steps[currentStep]?.id === 'success' ? '#10B981' : 'transparent'
           }} />
         </div>

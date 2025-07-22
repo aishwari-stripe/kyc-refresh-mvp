@@ -48,7 +48,7 @@ const TopNavBar: React.FC<TopNavBarProps> = ({
           borderRadius: '8px',
           border: '1px solid #E4E7EC'
         }}>
-          Live Preview
+          Conceptual view
         </span>
       </div>
       
