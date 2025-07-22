@@ -56,7 +56,7 @@ type EmailContent = IndividualVerificationEmail | StandardVerificationEmail | Co
 function App() {
   const [currentView, setCurrentView] = useState<'email' | 'dashboard'>('email');
   const [riskProfile, setRiskProfile] = useState<RiskProfile>('low');
-  const [entityType, setEntityType] = useState<EntityType>('individual');
+const [entityType, setEntityType] = useState<EntityType>('company');
 
   // Sample user data to demonstrate pre-filled forms
   const userData: UserData = {
