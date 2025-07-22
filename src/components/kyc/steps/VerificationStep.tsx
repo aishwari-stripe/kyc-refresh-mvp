@@ -7,7 +7,7 @@ interface VerificationStepProps {
 }
 
 const VerificationStep: React.FC<VerificationStepProps> = ({
-  userData,
+  userData: _userData,
   onComplete,
 }) => {
   const [currentMessage, setCurrentMessage] = useState(0);

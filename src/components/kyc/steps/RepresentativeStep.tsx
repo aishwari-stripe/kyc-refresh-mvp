@@ -68,41 +68,7 @@ const RepresentativeStep: React.FC<RepresentativeStepProps> = ({ userData }) => 
     }, 2000);
   };
 
-  const getLastUpdatedBadge = () => {
-    if (!userData?.metadata?.lastUpdatedDate) return null;
-    
-    const lastUpdated = new Date(userData.metadata.lastUpdatedDate);
-    const now = new Date();
-    const diffInMonths = (now.getFullYear() - lastUpdated.getFullYear()) * 12 + 
-                        (now.getMonth() - lastUpdated.getMonth());
-    
-    if (diffInMonths >= 12) {
-      const years = Math.floor(diffInMonths / 12);
-      const remainingMonths = diffInMonths % 12;
-      let text = `Last updated: ${years} year${years > 1 ? 's' : ''}`;
-      if (remainingMonths > 0) {
-        text += ` ${remainingMonths} month${remainingMonths > 1 ? 's' : ''}`;
-      }
-      text += ' ago';
-      
-      return (
-        <div style={{
-          backgroundColor: '#FEF3C7',
-          color: '#92400E',
-          fontSize: '12px',
-          fontWeight: '500',
-          padding: '6px 12px',
-          borderRadius: '16px',
-          display: 'inline-block',
-          marginBottom: '24px'
-        }}>
-          {text}
-        </div>
-      );
-    }
-    
-    return null;
-  };
+
 
   const renderField = (
     fieldName: keyof RepresentativeInfo,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import KYCRefreshModal, { RiskProfile, EntityType, UserData } from './components/kyc/KYCRefreshModal';
 import TopNavBar from './components/TopNavBar';
 import './components/kyc/KYCRefreshModal.css';
@@ -93,10 +93,7 @@ function App() {
     setCurrentView('email');
   };
 
-  const handleComplete = () => {
-    alert('KYC process completed!');
-    setCurrentView('email');
-  };
+
 
   // Determine email content based on configuration
   const getEmailContent = (): EmailContent => {

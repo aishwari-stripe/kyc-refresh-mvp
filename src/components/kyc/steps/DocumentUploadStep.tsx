@@ -23,7 +23,7 @@ const DocumentUploadStep: React.FC<DocumentUploadStepProps> = ({
   onPrevious,
   isFirstStep,
   isLastStep,
-  userData,
+  userData: _userData,
 }) => {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [dragActive, setDragActive] = useState(false);

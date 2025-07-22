@@ -6,7 +6,7 @@ interface ContextStepProps {
 }
 
 const ContextStep: React.FC<ContextStepProps> = ({
-  userData,
+  userData: _userData,
 }) => {
   return (
     <div className="kyc-step context-step">

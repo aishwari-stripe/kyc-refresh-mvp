@@ -58,32 +58,7 @@ const BusinessOwnerStep: React.FC<BusinessOwnerStepProps> = ({ userData }) => {
     }, 2000);
   };
 
-  const getLastUpdatedBadge = () => {
-    if (!userData?.metadata?.lastUpdatedDate) return null;
-    
-    const lastUpdated = new Date(userData.metadata.lastUpdatedDate);
-    const now = new Date();
-    const diffInYears = now.getFullYear() - lastUpdated.getFullYear();
-    
-    if (diffInYears >= 2) {
-      return (
-        <div style={{
-          backgroundColor: '#FFE8C2',
-          color: '#B54708',
-          fontSize: '12px',
-          fontWeight: '500',
-          padding: '6px 12px',
-          borderRadius: '16px',
-          display: 'inline-block',
-          marginBottom: '24px'
-        }}>
-          Last updated: {diffInYears} years ago
-        </div>
-      );
-    }
-    
-    return null;
-  };
+
 
   const renderField = (
     fieldName: keyof BusinessOwnerInfo,

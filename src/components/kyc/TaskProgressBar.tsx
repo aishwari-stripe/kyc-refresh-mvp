@@ -28,7 +28,6 @@ const TaskProgressBar: React.FC<TaskProgressBarProps> = ({
         {steps.map((step, index) => {
           const isCompleted = index < currentStep;
           const isCurrent = index === currentStep;
-          const isPending = index > currentStep;
 
           return (
             <div

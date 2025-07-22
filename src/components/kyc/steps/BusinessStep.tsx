@@ -68,33 +68,7 @@ const BusinessStep: React.FC<BusinessStepProps> = ({ userData }) => {
     return industry.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
   };
 
-  const getLastUpdatedBadge = () => {
-    if (!userData?.metadata?.lastUpdatedDate) return null;
-    
-    const lastUpdated = new Date(userData.metadata.lastUpdatedDate);
-    const now = new Date();
-    const diffInMonths = (now.getFullYear() - lastUpdated.getFullYear()) * 12 + 
-                        (now.getMonth() - lastUpdated.getMonth());
-    
-    if (diffInMonths < 12) {
-      return (
-        <div style={{
-          backgroundColor: '#D0F2E0',
-          color: '#065A2C',
-          fontSize: '12px',
-          fontWeight: '500',
-          padding: '6px 12px',
-          borderRadius: '16px',
-          display: 'inline-block',
-          marginBottom: '24px'
-        }}>
-          Last updated: {diffInMonths} month{diffInMonths > 1 ? 's' : ''} ago
-        </div>
-      );
-    }
-    
-    return null;
-  };
+
 
   const renderField = (
     fieldName: keyof BusinessInfo,

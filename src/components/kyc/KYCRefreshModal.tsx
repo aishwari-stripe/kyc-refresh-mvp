@@ -1,11 +1,11 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import ContextStep from './steps/ContextStep';
 import RepresentativeStep from './steps/RepresentativeStep';
 import BusinessStep from './steps/BusinessStep';
 import BusinessOwnerStep from './steps/BusinessOwnerStep';
 import VerificationStep from './steps/VerificationStep';
 import SuccessStep from './steps/SuccessStep';
-import DocumentUploadStep from './steps/DocumentUploadStep';
+
 import './KYCRefreshModal.css';
 
 export interface UserData {
@@ -56,7 +56,7 @@ interface KYCRefreshModalProps {
 const KYCRefreshModal: React.FC<KYCRefreshModalProps> = ({
   isOpen,
   onClose,
-  riskProfile,
+  riskProfile: _riskProfile,
   entityType,
   userData,
 }) => {

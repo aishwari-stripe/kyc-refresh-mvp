@@ -6,7 +6,7 @@ interface SuccessStepProps {
 }
 
 const SuccessStep: React.FC<SuccessStepProps> = ({
-  userData,
+  userData: _userData,
 }) => {
   return (
     <div style={{
