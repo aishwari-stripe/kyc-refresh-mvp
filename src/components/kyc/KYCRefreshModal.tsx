@@ -5,6 +5,7 @@ import BusinessStep from './steps/BusinessStep';
 import BusinessOwnerStep from './steps/BusinessOwnerStep';
 import VerificationStep from './steps/VerificationStep';
 import SuccessStep from './steps/SuccessStep';
+import { getAssetPath } from '../../utils/assets';
 
 import './KYCRefreshModal.css';
 
@@ -141,7 +142,7 @@ const KYCRefreshModal: React.FC<KYCRefreshModalProps> = ({
     const step = steps[currentStep];
     switch (step.id) {
       case 'context':
-        return 'url(/gradient-illustration.png)';
+        return `url(${getAssetPath('/gradient-illustration.png')})`;
       case 'representative':
         return 'linear-gradient(135deg, #635BFF 0%, #4F46E5 50%, #3B82F6 100%)';
       case 'business':
@@ -151,7 +152,7 @@ const KYCRefreshModal: React.FC<KYCRefreshModalProps> = ({
       case 'verification':
         return 'linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #FDE047 100%)';
       case 'success':
-        return 'url(/success-illustration.png)';
+        return `url(${getAssetPath('/success-illustration.png')})`;
       default:
         return 'linear-gradient(135deg, #635BFF 0%, #4F46E5 100%)';
     }

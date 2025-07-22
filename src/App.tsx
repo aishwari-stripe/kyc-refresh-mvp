@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import KYCRefreshModal, { RiskProfile, EntityType, UserData } from './components/kyc/KYCRefreshModal';
 import TopNavBar from './components/TopNavBar';
+import { getAssetPath } from './utils/assets';
 import './components/kyc/KYCRefreshModal.css';
 
 // Email content types
@@ -249,7 +250,7 @@ function App() {
              textAlign: 'left'
            }}>
              <img 
-               src="/stripe-logo.png" 
+               src={getAssetPath('/stripe-logo.png')} 
                alt="Stripe" 
                style={{ 
                  height: '25px',
@@ -268,7 +269,7 @@ function App() {
             
             {/* Beautiful Gradient Background */}
             <div style={{
-              backgroundImage: 'url(/gradient-email.png)',
+              backgroundImage: `url(${getAssetPath('/gradient-email.png')})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
