@@ -33,7 +33,7 @@
 /* Modal Overlay */
 .kyc-modal-overlay {
   position: fixed;
-  top: 0;
+  top: 52px; /* Account for TopNavBar height (12px + content + 12px + border) */
   left: 0;
   right: 0;
   bottom: 0;

@@ -175,12 +175,18 @@ function App() {
       <div style={{
         minHeight: '100vh',
         background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.3) 0%, rgba(20, 20, 20, 0.3) 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '20px',
         fontFamily: '-apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", "Roboto", "Ubuntu", sans-serif',
+        position: 'relative'
       }}>
+        {/* Top Navigation Bar - Always visible */}
+        <TopNavBar
+          riskProfile={riskProfile}
+          entityType={entityType}
+          onRiskProfileChange={setRiskProfile}
+          onEntityTypeChange={setEntityType}
+        />
+        
+        {/* Modal */}
         <KYCRefreshModal
           riskProfile={riskProfile}
           entityType={entityType}

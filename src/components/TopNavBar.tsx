@@ -23,11 +23,13 @@ const TopNavBar: React.FC<TopNavBarProps> = ({
       backgroundColor: '#FFFFFF',
       borderBottom: '1px solid #E4E7EC',
       padding: '12px 20px',
-      zIndex: 2000,
+      zIndex: 10000, // Ensure it's above everything including modals
       display: 'flex',
       alignItems: 'center',
       gap: '32px',
-      boxShadow: '0 2px 8px rgba(26, 31, 46, 0.08)'
+      boxShadow: '0 2px 8px rgba(26, 31, 46, 0.08)',
+      backdropFilter: 'blur(8px)', // Subtle glass effect to show it's above other content
+      WebkitBackdropFilter: 'blur(8px)' // Safari support
     }}>
       {/* Logo/Title */}
       <div style={{
@@ -38,6 +40,16 @@ const TopNavBar: React.FC<TopNavBarProps> = ({
         gap: '8px'
       }}>
         ⚙️ Configuration
+        <span style={{
+          fontSize: '10px',
+          color: '#6C7689',
+          backgroundColor: '#F4F3FF',
+          padding: '2px 6px',
+          borderRadius: '8px',
+          border: '1px solid #E4E7EC'
+        }}>
+          Live Preview
+        </span>
       </div>
       
       {/* Risk Profile Selector */}
