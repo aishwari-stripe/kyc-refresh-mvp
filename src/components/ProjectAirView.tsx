@@ -8,87 +8,8 @@ const ProjectAirView: React.FC = () => {
       backgroundColor: '#FFFFFF',
       fontFamily: '-apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", "Roboto", "Ubuntu", sans-serif',
       paddingTop: '52px', // Account for top nav
+      display: 'flex'
     }}>
-      {/* Top Header */}
-      <div style={{
-        backgroundColor: '#F5F6F8',
-        padding: '12px 40px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderBottom: '1px solid #E5E7EB'
-      }}>
-        {/* Search Bar */}
-        <div style={{
-          position: 'relative',
-          width: '400px'
-        }}>
-          <div style={{
-            position: 'absolute',
-            left: '12px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            color: '#9CA3AF',
-            fontSize: '16px'
-          }}>
-            🔍
-          </div>
-          <input
-            type="text"
-            placeholder=""
-            style={{
-              width: '100%',
-              padding: '8px 12px 8px 36px',
-              border: 'none',
-              borderRadius: '8px',
-              backgroundColor: '#FFFFFF',
-              font: '400 14px/20px var(--font-family-system)',
-              outline: 'none'
-            }}
-          />
-        </div>
-
-        {/* Right Icons */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '16px'
-        }}>
-          <img 
-            src={getAssetPath('/help.svg')} 
-            alt="Help" 
-            style={{ 
-              width: '20px', 
-              height: '20px',
-              cursor: 'pointer',
-              opacity: 0.7
-            }} 
-          />
-          <img 
-            src={getAssetPath('/notifications.svg')} 
-            alt="Notifications" 
-            style={{ 
-              width: '20px', 
-              height: '20px',
-              cursor: 'pointer',
-              opacity: 0.7
-            }} 
-          />
-          <img 
-            src={getAssetPath('/settings.svg')} 
-            alt="Settings" 
-            style={{ 
-              width: '20px', 
-              height: '20px',
-              cursor: 'pointer',
-              opacity: 0.7
-            }} 
-          />
-        </div>
-      </div>
-
-      {/* Main Layout */}
-      <div style={{ display: 'flex' }}>
       {/* Left Sidebar */}
       <div style={{
         width: '250px',
@@ -156,14 +77,94 @@ const ProjectAirView: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Content Area */}
-      <div style={{
-        flex: 1,
-        padding: '40px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '24px'
-      }}>
+      {/* Right Container */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* Top Header (Search Bar) */}
+        <div style={{
+          backgroundColor: '#F5F6F8',
+          padding: '12px 40px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          borderBottom: '1px solid #E5E7EB'
+        }}>
+          {/* Search Bar */}
+          <div style={{
+            position: 'relative',
+            width: '400px'
+          }}>
+            <div style={{
+              position: 'absolute',
+              left: '12px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              color: '#9CA3AF',
+              fontSize: '16px'
+            }}>
+              🔍
+            </div>
+            <input
+              type="text"
+              placeholder=""
+              style={{
+                width: '100%',
+                padding: '8px 12px 8px 36px',
+                border: 'none',
+                borderRadius: '8px',
+                backgroundColor: '#FFFFFF',
+                font: '400 14px/20px var(--font-family-system)',
+                outline: 'none'
+              }}
+            />
+          </div>
+
+          {/* Right Icons */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px'
+          }}>
+            <img 
+              src={getAssetPath('/help.svg')} 
+              alt="Help" 
+              style={{ 
+                width: '20px', 
+                height: '20px',
+                cursor: 'pointer',
+                opacity: 0.7
+              }} 
+            />
+            <img 
+              src={getAssetPath('/notifications.svg')} 
+              alt="Notifications" 
+              style={{ 
+                width: '20px', 
+                height: '20px',
+                cursor: 'pointer',
+                opacity: 0.7
+              }} 
+            />
+            <img 
+              src={getAssetPath('/settings.svg')} 
+              alt="Settings" 
+              style={{ 
+                width: '20px', 
+                height: '20px',
+                cursor: 'pointer',
+                opacity: 0.7
+              }} 
+            />
+          </div>
+        </div>
+
+        {/* Main Content Area */}
+        <div style={{
+          flex: 1,
+          padding: '40px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '24px'
+        }}>
         {/* Top Row - 3 Cards Grid */}
         <div style={{
           display: 'grid',
@@ -282,7 +283,7 @@ const ProjectAirView: React.FC = () => {
           borderRadius: '12px',
           height: '280px'
         }} />
-      </div>
+        </div>
       </div>
     </div>
   );
