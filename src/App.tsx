@@ -849,8 +849,11 @@ const ProjectAirViewWithNav: React.FC<{ phase: Phase; onPhaseChange: (phase: Pha
 
 // Main App with Router
 function App() {
+  // Use correct basename for GitHub Pages
+  const basename = import.meta.env.PROD ? '/kyc-refresh-mvp' : '';
+  
   return (
-    <Router>
+    <Router basename={basename}>
       <RouterComponent />
     </Router>
   );
