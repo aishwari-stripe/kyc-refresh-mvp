@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import KYCRefreshModal, { RiskProfile, EntityType, UserData } from './components/kyc/KYCRefreshModal';
-import TopNavBar from './components/TopNavBar';
+import TopNavBar, { Phase } from './components/TopNavBar';
+import ProjectAirView from './components/ProjectAirView';
 import { getAssetPath } from './utils/assets';
 import './components/kyc/KYCRefreshModal.css';
 
@@ -19,9 +21,11 @@ interface IndividualVerificationEmail extends BaseEmailContent {
   representativeInfo: {
     name: string;
     address: string;
-    phone: string;
   };
-  footerText: string;
+  conditionalSections: {
+    correctInfo: string;
+    changedInfo: string;
+  };
   signOff: string;
 }
 
@@ -29,7 +33,14 @@ interface StandardVerificationEmail extends BaseEmailContent {
   type: 'standard-verification';
   greeting: string;
   bodyText: string;
-  ctaText: string;
+  representativeInfo: {
+    name: string;
+    address: string;
+  };
+  conditionalSections: {
+    correctInfo: string;
+    changedInfo: string;
+  };
   footerText: string;
   signOff: string;
 }
@@ -53,22 +64,23 @@ interface SectionBasedEmail extends BaseEmailContent {
 
 type EmailContent = IndividualVerificationEmail | StandardVerificationEmail | CompanyVerificationEmail | SectionBasedEmail;
 
-function App() {
+// MVP App Component (the current functionality)
+const MVPApp: React.FC<{ onPhaseChange: (phase: Phase) => void; selectedPhase: Phase }> = ({ onPhaseChange, selectedPhase }) => {
   const [currentView, setCurrentView] = useState<'email' | 'dashboard'>('email');
   const [riskProfile, setRiskProfile] = useState<RiskProfile>('low');
-const [entityType, setEntityType] = useState<EntityType>('company');
+  const [entityType, setEntityType] = useState<EntityType>('company');
 
   // Sample user data to demonstrate pre-filled forms
   const userData: UserData = {
     representative: {
-      firstName: 'Jane',
-      lastName: 'Doe',
+      firstName: 'Peter',
+      lastName: 'Parker',
       phone: '(555) 123-4567',
-      address: '123 Main St, Suite 100',
-      city: 'New York',
-      state: 'NY',
-      zipCode: '10001',
-      email: 'jane.doe@example.com',
+      address: '123 Alameda St',
+      city: 'San Jose',
+      state: 'CA',
+      zipCode: '95126',
+      email: 'peter.parker@example.com',
     },
     business: {
       businessType: 'corporation',
@@ -104,14 +116,16 @@ const [entityType, setEntityType] = useState<EntityType>('company');
         type: 'individual-verification',
         subject: 'Let\'s ensure your account details are up to date',
         title: 'Let\'s ensure your account details are up to date',
-        greeting: 'Hi Jane,',
-        bodyText: 'As part of our commitment to your account\'s security and to meet regulatory standards, we periodically ask our users to verify their information. We\'ve made this as simple as possible for you.\n\nPlease review the representative details we have on file for your account:',
+        greeting: 'Hi Peter,',
+        bodyText: 'To keep your business running smoothly, we periodically review your account\'s representative information. Please take a moment to look over the details we have on file.',
         representativeInfo: {
-          name: 'Jane Doe',
-          address: '123 Main St, Suite 100, New York, NY, 10001',
-          phone: '(555) 123-4567'
+          name: 'Peter Parker',
+          address: '123 Alameda St, San Jose\nSan Jose 95126'
         },
-        footerText: 'If all the details above are correct, you\'re all set! No further action is required from you. We will consider these details confirmed after November 15, 2023.\n\nIf you need to make any changes, go to your Stripe dashboard and update your information.',
+        conditionalSections: {
+          correctInfo: 'You\'re all set! No action is needed from you. We will automatically consider your information confirmed on [date].',
+          changedInfo: 'You\'ll need to update in your Stripe Settings. This ensures your account stays in good standing.'
+        },
         ctaText: 'Update my information',
         signOff: 'Thank you for helping us keep your account secure.\n\nThe Stripe Team'
       };
@@ -123,7 +137,7 @@ const [entityType, setEntityType] = useState<EntityType>('company');
         type: 'company-verification',
         subject: 'Please verify your company\'s account information',
         title: 'Please verify your company\'s account information',
-        greeting: 'Hi <business rep>,',
+        greeting: 'Hi Peter,',
         bodyText: 'To ensure seamless operations and maintain compliance for [Company Name], we periodically require the verification of key account information.\n\nThis standard review ensures that all details, such as your registered business address, company representatives, and beneficial ownership structure, are current. Keeping this information accurate is essential for your account\'s security and helps prevent any potential service interruptions.\n\nFor your company\'s security, you will be asked to log in to your secure dashboard to review and confirm these details. The information has been pre-filled for your convenience, making the process a quick confirmation.',
         ctaText: 'Review account information',
         signOff: 'Thank you for helping us maintain the integrity of your company\'s account.\n\nSincerely,\n\nThe Stripe team'
@@ -136,8 +150,16 @@ const [entityType, setEntityType] = useState<EntityType>('company');
         type: 'standard-verification',
         subject: 'A quick check-in on your account details',
         title: 'A quick check-in on your account details',
-        greeting: 'Hi Jane,',
-        bodyText: 'We know businesses grow and change over time. Whether you\'ve moved to a new office, updated your services, or changed leadership, we want to be right there with you.\n\nTo support you best, we periodically ask you to confirm that the information we have on file is accurate. This quick verification ensures your account stays secure, compliant, and ready for whatever\'s next for your business.\n\nTo make this as quick as possible, we\'ve pre-filled the form with the information we currently have on file. Please take a moment to ensure it\'s all correct.',
+        greeting: 'Hi Peter,',
+        bodyText: 'To keep your business running smoothly, we periodically review your account\'s representative information. Please take a moment to look over the details we have on file.',
+        representativeInfo: {
+          name: 'Peter Parker',
+          address: '123 Alameda St, San Jose\nSan Jose 95126'
+        },
+        conditionalSections: {
+          correctInfo: 'You\'re all set! No action is needed from you. We will automatically consider your information confirmed on [date].',
+          changedInfo: 'You\'ll need to update in your Stripe Settings. This ensures your account stays in good standing.'
+        },
         ctaText: 'Review & confirm my information',
         footerText: 'Completing this verification is essential to ensure your account remains in good standing and there are no interruptions to your service.',
         signOff: 'Thank you for helping us support your business.\n\nThe Stripe team'
@@ -182,8 +204,10 @@ const [entityType, setEntityType] = useState<EntityType>('company');
         <TopNavBar
           riskProfile={riskProfile}
           entityType={entityType}
+          selectedPhase={selectedPhase}
           onRiskProfileChange={setRiskProfile}
           onEntityTypeChange={setEntityType}
+          onPhaseChange={onPhaseChange}
         />
         
         {/* Modal */}
@@ -207,13 +231,15 @@ const [entityType, setEntityType] = useState<EntityType>('company');
       minHeight: '100vh',
       position: 'relative'
     }}>
-      {/* Top Navigation Bar */}
-      <TopNavBar
-        riskProfile={riskProfile}
-        entityType={entityType}
-        onRiskProfileChange={setRiskProfile}
-        onEntityTypeChange={setEntityType}
-      />
+              {/* Top Navigation Bar */}
+        <TopNavBar
+          riskProfile={riskProfile}
+          entityType={entityType}
+          selectedPhase={selectedPhase}
+          onRiskProfileChange={setRiskProfile}
+          onEntityTypeChange={setEntityType}
+          onPhaseChange={onPhaseChange}
+        />
 
       {/* Email Preview as Main Content */}
       <div style={{ 
@@ -340,17 +366,17 @@ const [entityType, setEntityType] = useState<EntityType>('company');
                     color: '#1A1F2E',
                     margin: '0 0 16px 0'
                   }}>
-                    Representative Information
+                    Here's what we have on file
                   </h3>
                   
                   <div style={{ marginBottom: '12px' }}>
                     <span style={{
                       font: '500 14px/20px var(--font-family-system)',
                       color: '#4F566B',
-                      display: 'inline-block',
-                      width: '100px'
+                      display: 'block',
+                      marginBottom: '4px'
                     }}>
-                      Name:
+                      Account representative
                     </span>
                     <span style={{
                       font: '400 14px/20px var(--font-family-system)',
@@ -360,54 +386,58 @@ const [entityType, setEntityType] = useState<EntityType>('company');
                     </span>
                   </div>
 
-                  <div style={{ marginBottom: '12px' }}>
-                    <span style={{
-                      font: '500 14px/20px var(--font-family-system)',
-                      color: '#4F566B',
-                      display: 'inline-block',
-                      width: '100px',
-                      verticalAlign: 'top'
-                    }}>
-                      Address:
-                    </span>
-                    <span style={{
-                      font: '400 14px/20px var(--font-family-system)',
-                      color: '#1A1F2E'
-                    }}>
-                      {(emailContent as IndividualVerificationEmail).representativeInfo.address}
-                    </span>
-                  </div>
-
                   <div style={{ marginBottom: '0' }}>
                     <span style={{
                       font: '500 14px/20px var(--font-family-system)',
                       color: '#4F566B',
-                      display: 'inline-block',
-                      width: '100px'
+                      display: 'block',
+                      marginBottom: '4px'
                     }}>
-                      Phone:
+                      Address
                     </span>
                     <span style={{
                       font: '400 14px/20px var(--font-family-system)',
-                      color: '#1A1F2E'
+                      color: '#1A1F2E',
+                      whiteSpace: 'pre-line'
                     }}>
-                      {(emailContent as IndividualVerificationEmail).representativeInfo.phone}
+                      {(emailContent as IndividualVerificationEmail).representativeInfo.address}
                     </span>
                   </div>
                 </div>
 
-                {/* Footer text */}
+                {/* Conditional Sections */}
                 <div style={{
-                  font: '400 16px/24px var(--font-family-system)',
-                  color: '#1A1F2E',
-                  margin: '32px 0',
-                  lineHeight: '1.6'
+                  margin: '32px 0'
                 }}>
-                  {(emailContent as IndividualVerificationEmail).footerText.split('\n\n').map((paragraph, index) => (
-                    <p key={index} style={{ margin: '0 0 16px 0' }}>
-                      {paragraph}
-                    </p>
-                  ))}
+                  <h4 style={{
+                    font: '600 16px/24px var(--font-family-system)',
+                    color: '#1A1F2E',
+                    margin: '0 0 8px 0'
+                  }}>
+                    If this information is correct
+                  </h4>
+                  <p style={{
+                    font: '400 16px/24px var(--font-family-system)',
+                    color: '#1A1F2E',
+                    margin: '0 0 24px 0'
+                  }}>
+                    {(emailContent as IndividualVerificationEmail).conditionalSections.correctInfo}
+                  </p>
+
+                  <h4 style={{
+                    font: '600 16px/24px var(--font-family-system)',
+                    color: '#1A1F2E',
+                    margin: '0 0 8px 0'
+                  }}>
+                    If this information has changed
+                  </h4>
+                  <p style={{
+                    font: '400 16px/24px var(--font-family-system)',
+                    color: '#1A1F2E',
+                    margin: '0'
+                  }}>
+                    {(emailContent as IndividualVerificationEmail).conditionalSections.changedInfo}
+                  </p>
                 </div>
               </>
             ) : emailContent.type === 'standard-verification' ? (
@@ -434,6 +464,93 @@ const [entityType, setEntityType] = useState<EntityType>('company');
                       {paragraph}
                     </p>
                   ))}
+                </div>
+
+                {/* Representative Information */}
+                <div style={{
+                  backgroundColor: '#F9FAFB',
+                  border: '1px solid #E4E7EC',
+                  borderRadius: '8px',
+                  padding: '24px',
+                  margin: '32px 0'
+                }}>
+                  <h3 style={{
+                    font: '600 18px/26px var(--font-family-system)',
+                    color: '#1A1F2E',
+                    margin: '0 0 16px 0'
+                  }}>
+                    Here's what we have on file
+                  </h3>
+                  
+                  <div style={{ marginBottom: '12px' }}>
+                    <span style={{
+                      font: '500 14px/20px var(--font-family-system)',
+                      color: '#4F566B',
+                      display: 'block',
+                      marginBottom: '4px'
+                    }}>
+                      Account representative
+                    </span>
+                    <span style={{
+                      font: '400 14px/20px var(--font-family-system)',
+                      color: '#1A1F2E'
+                    }}>
+                      {(emailContent as StandardVerificationEmail).representativeInfo.name}
+                    </span>
+                  </div>
+
+                  <div style={{ marginBottom: '0' }}>
+                    <span style={{
+                      font: '500 14px/20px var(--font-family-system)',
+                      color: '#4F566B',
+                      display: 'block',
+                      marginBottom: '4px'
+                    }}>
+                      Address
+                    </span>
+                    <span style={{
+                      font: '400 14px/20px var(--font-family-system)',
+                      color: '#1A1F2E',
+                      whiteSpace: 'pre-line'
+                    }}>
+                      {(emailContent as StandardVerificationEmail).representativeInfo.address}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Conditional Sections */}
+                <div style={{
+                  margin: '32px 0'
+                }}>
+                  <h4 style={{
+                    font: '600 16px/24px var(--font-family-system)',
+                    color: '#1A1F2E',
+                    margin: '0 0 8px 0'
+                  }}>
+                    If this information is correct
+                  </h4>
+                  <p style={{
+                    font: '400 16px/24px var(--font-family-system)',
+                    color: '#1A1F2E',
+                    margin: '0 0 24px 0'
+                  }}>
+                    {(emailContent as StandardVerificationEmail).conditionalSections.correctInfo}
+                  </p>
+
+                  <h4 style={{
+                    font: '600 16px/24px var(--font-family-system)',
+                    color: '#1A1F2E',
+                    margin: '0 0 8px 0'
+                  }}>
+                    If this information has changed
+                  </h4>
+                  <p style={{
+                    font: '400 16px/24px var(--font-family-system)',
+                    color: '#1A1F2E',
+                    margin: '0'
+                  }}>
+                    {(emailContent as StandardVerificationEmail).conditionalSections.changedInfo}
+                  </p>
                 </div>
               </>
             ) : emailContent.type === 'company-verification' ? (
@@ -676,6 +793,66 @@ const [entityType, setEntityType] = useState<EntityType>('company');
         </div>
              </div>
     </div>
+  );
+};
+
+// Router Component to handle navigation
+const RouterComponent: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const getCurrentPhase = (): Phase => {
+    if (location.pathname === '/mvp') return 'mvp';
+    return 'project-air';
+  };
+
+  const handlePhaseChange = (phase: Phase) => {
+    navigate(phase === 'mvp' ? '/mvp' : '/project-air');
+  };
+
+  return (
+    <>
+      <Routes>
+        <Route path="/mvp" element={<MVPAppWithNav phase={getCurrentPhase()} onPhaseChange={handlePhaseChange} />} />
+        <Route path="/project-air" element={<ProjectAirViewWithNav phase={getCurrentPhase()} onPhaseChange={handlePhaseChange} />} />
+        <Route path="/" element={<ProjectAirViewWithNav phase={getCurrentPhase()} onPhaseChange={handlePhaseChange} />} />
+      </Routes>
+    </>
+  );
+};
+
+// MVP view with navigation
+const MVPAppWithNav: React.FC<{ phase: Phase; onPhaseChange: (phase: Phase) => void }> = ({ phase, onPhaseChange }) => {
+  return <MVPApp onPhaseChange={onPhaseChange} selectedPhase={phase} />;
+};
+
+// Project AIR view with navigation
+const ProjectAirViewWithNav: React.FC<{ phase: Phase; onPhaseChange: (phase: Phase) => void }> = ({ phase, onPhaseChange }) => {
+  return (
+    <div style={{
+      fontFamily: '-apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", "Roboto", "Ubuntu", sans-serif',
+      minHeight: '100vh',
+      backgroundColor: '#F9FAFB'
+    }}>
+      <TopNavBar
+        riskProfile="low"
+        entityType="company"
+        selectedPhase={phase}
+        onRiskProfileChange={() => {}}
+        onEntityTypeChange={() => {}}
+        onPhaseChange={onPhaseChange}
+      />
+      <ProjectAirView />
+    </div>
+  );
+};
+
+// Main App with Router
+function App() {
+  return (
+    <Router>
+      <RouterComponent />
+    </Router>
   );
 }
 
