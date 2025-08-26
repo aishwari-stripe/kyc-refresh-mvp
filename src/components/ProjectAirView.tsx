@@ -81,20 +81,42 @@ const ProjectAirView: React.FC = () => {
         flex: 1,
         padding: '40px',
         display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'center'
+        flexDirection: 'column',
+        gap: '24px'
       }}>
+        {/* Top Row - 3 Cards Grid */}
         <div style={{
-          maxWidth: '600px',
-          width: '100%'
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr 1fr',
+          gap: '24px',
+          height: '320px'
         }}>
-          {/* Main Card */}
+          {/* First Grey Placeholder Card */}
+          <div style={{
+            backgroundColor: '#E5E7EB',
+            borderRadius: '12px',
+            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
+            border: '1px solid #F3F4F6'
+          }} />
+
+          {/* Second Grey Placeholder Card */}
+          <div style={{
+            backgroundColor: '#E5E7EB',
+            borderRadius: '12px',
+            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
+            border: '1px solid #F3F4F6'
+          }} />
+
+          {/* Active Gradient Card */}
           <div style={{
             background: 'linear-gradient(135deg, #FFE4E1 0%, #F8BBD9 50%, #E1C3FC 100%)',
             borderRadius: '12px',
             padding: '32px',
             boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
-            position: 'relative'
+            position: 'relative',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between'
           }}>
             {/* New Badge */}
             <div style={{
@@ -114,10 +136,9 @@ const ProjectAirView: React.FC = () => {
             {/* Main Content */}
             <div style={{ marginTop: '16px' }}>
               <h1 style={{
-                font: '700 32px/40px var(--font-family-system)',
+                font: '700 24px/32px var(--font-family-system)',
                 color: '#1A1F2E',
-                margin: '0 0 32px 0',
-                maxWidth: '400px'
+                margin: '0 0 24px 0'
               }}>
                 Start your 2025 account check-in
               </h1>
@@ -126,62 +147,72 @@ const ProjectAirView: React.FC = () => {
               <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '16px',
-                marginBottom: '32px'
+                gap: '12px',
+                marginBottom: '24px'
               }}>
                 <div style={{
-                  height: '12px',
+                  height: '8px',
                   backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                  borderRadius: '6px',
+                  borderRadius: '4px',
                   width: '100%'
                 }} />
                 <div style={{
-                  height: '12px',
+                  height: '8px',
                   backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                  borderRadius: '6px',
+                  borderRadius: '4px',
                   width: '85%'
                 }} />
                 <div style={{
-                  height: '12px',
+                  height: '8px',
                   backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                  borderRadius: '6px',
+                  borderRadius: '4px',
                   width: '70%'
                 }} />
                 <div style={{
-                  height: '12px',
+                  height: '8px',
                   backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                  borderRadius: '6px',
+                  borderRadius: '4px',
                   width: '60%'
                 }} />
               </div>
-
-              {/* Start Button */}
-              <button style={{
-                backgroundColor: '#1A1F2E',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-                padding: '12px 24px',
-                font: '600 16px/24px var(--font-family-system)',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                boxShadow: '0 2px 8px rgba(26, 31, 46, 0.2)'
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.backgroundColor = '#2A2F3E';
-                e.currentTarget.style.transform = 'translateY(-1px)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(26, 31, 46, 0.3)';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.backgroundColor = '#1A1F2E';
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 2px 8px rgba(26, 31, 46, 0.2)';
-              }}>
-                Start
-              </button>
             </div>
+
+            {/* Start Button */}
+            <button style={{
+              backgroundColor: '#1A1F2E',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              padding: '10px 20px',
+              font: '600 14px/20px var(--font-family-system)',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 2px 8px rgba(26, 31, 46, 0.2)',
+              alignSelf: 'flex-start'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor = '#2A2F3E';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(26, 31, 46, 0.3)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = '#1A1F2E';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(26, 31, 46, 0.2)';
+            }}>
+              Start
+            </button>
           </div>
         </div>
+
+        {/* Bottom Row - Large Grey Placeholder Card */}
+        <div style={{
+          backgroundColor: '#E5E7EB',
+          borderRadius: '12px',
+          height: '280px',
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
+          border: '1px solid #F3F4F6'
+        }} />
       </div>
     </div>
   );
