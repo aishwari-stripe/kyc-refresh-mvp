@@ -4,7 +4,7 @@ const ProjectAirView: React.FC = () => {
   return (
     <div style={{
       minHeight: '100vh',
-      backgroundColor: '#F8F9FA',
+      backgroundColor: '#FFFFFF',
       fontFamily: '-apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", "Roboto", "Ubuntu", sans-serif',
       paddingTop: '52px', // Account for top nav
       display: 'flex'
@@ -93,18 +93,14 @@ const ProjectAirView: React.FC = () => {
         }}>
           {/* First Grey Placeholder Card */}
           <div style={{
-            backgroundColor: '#E5E7EB',
-            borderRadius: '12px',
-            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
-            border: '1px solid #F3F4F6'
+            backgroundColor: '#F5F6F8',
+            borderRadius: '12px'
           }} />
 
           {/* Second Grey Placeholder Card */}
           <div style={{
-            backgroundColor: '#E5E7EB',
-            borderRadius: '12px',
-            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
-            border: '1px solid #F3F4F6'
+            backgroundColor: '#F5F6F8',
+            borderRadius: '12px'
           }} />
 
           {/* Active Gradient Card */}
@@ -112,7 +108,6 @@ const ProjectAirView: React.FC = () => {
             background: 'linear-gradient(135deg, #FFE4E1 0%, #F8BBD9 50%, #E1C3FC 100%)',
             borderRadius: '12px',
             padding: '32px',
-            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
             position: 'relative',
             display: 'flex',
             flexDirection: 'column',
@@ -127,8 +122,7 @@ const ProjectAirView: React.FC = () => {
               color: '#635BFF',
               padding: '4px 8px',
               borderRadius: '12px',
-              font: '500 12px/16px var(--font-family-system)',
-              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+              font: '500 12px/16px var(--font-family-system)'
             }}>
               + New
             </div>
@@ -187,18 +181,15 @@ const ProjectAirView: React.FC = () => {
               font: '600 14px/20px var(--font-family-system)',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
-              boxShadow: '0 2px 8px rgba(26, 31, 46, 0.2)',
               alignSelf: 'flex-start'
             }}
             onMouseOver={(e) => {
               e.currentTarget.style.backgroundColor = '#2A2F3E';
               e.currentTarget.style.transform = 'translateY(-1px)';
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(26, 31, 46, 0.3)';
             }}
             onMouseOut={(e) => {
               e.currentTarget.style.backgroundColor = '#1A1F2E';
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 2px 8px rgba(26, 31, 46, 0.2)';
             }}>
               Start
             </button>
@@ -207,11 +198,9 @@ const ProjectAirView: React.FC = () => {
 
         {/* Bottom Row - Large Grey Placeholder Card */}
         <div style={{
-          backgroundColor: '#E5E7EB',
+          backgroundColor: '#F5F6F8',
           borderRadius: '12px',
-          height: '280px',
-          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
-          border: '1px solid #F3F4F6'
+          height: '280px'
         }} />
       </div>
     </div>
