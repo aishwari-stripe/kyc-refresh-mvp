@@ -850,7 +850,9 @@ const ProjectAirViewWithNav: React.FC<{ phase: Phase; onPhaseChange: (phase: Pha
 // Main App with Router
 function App() {
   // Use correct basename for GitHub Pages
-  const basename = import.meta.env.PROD ? '/kyc-refresh-mvp' : '';
+  const isGitHubPages = typeof window !== 'undefined' && 
+    window.location.hostname.includes('github.io');
+  const basename = isGitHubPages ? '/kyc-refresh-mvp' : '';
   
   return (
     <Router basename={basename}>
