@@ -802,8 +802,8 @@ const RouterComponent: React.FC = () => {
   const location = useLocation();
   
   const getCurrentPhase = (): Phase => {
-    if (location.pathname === '/mvp') return 'mvp';
-    return 'project-air';
+    if (location.pathname === '/project-air') return 'project-air';
+    return 'mvp';
   };
 
   const handlePhaseChange = (phase: Phase) => {
@@ -815,7 +815,7 @@ const RouterComponent: React.FC = () => {
       <Routes>
         <Route path="/mvp" element={<MVPAppWithNav phase={getCurrentPhase()} onPhaseChange={handlePhaseChange} />} />
         <Route path="/project-air" element={<ProjectAirViewWithNav phase={getCurrentPhase()} onPhaseChange={handlePhaseChange} />} />
-        <Route path="/" element={<ProjectAirViewWithNav phase={getCurrentPhase()} onPhaseChange={handlePhaseChange} />} />
+        <Route path="/" element={<MVPAppWithNav phase={getCurrentPhase()} onPhaseChange={handlePhaseChange} />} />
       </Routes>
     </>
   );
